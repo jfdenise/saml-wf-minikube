@@ -14,7 +14,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <version.maven.war.plugin>3.3.2</version.maven.war.plugin>
         <version.wildfly>27.0.1.Final</version.wildfly>
-        <version.wildfly.plugin>4.0.0.Final</version.wildfly.plugin>
+        <version.wildfly.plugin>4.1.0.Beta5</version.wildfly.plugin>
         <version.wildfly.cloud.galleon.pack>2.0.0.Final</version.wildfly.cloud.galleon.pack>
         <jakarta.jakartaee-api.version>10.0.0</jakarta.jakartaee-api.version>
         <version.keycloak>999-SNAPSHOT</version.keycloak>
@@ -42,6 +42,11 @@
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>${version.wildfly.plugin}</version>
                 <configuration>
+                    <image>
+                        <registry>localhost:5000</registry>
+                        <push>true</push>
+                        <name>saml-app</name>
+                    </image>
                     <feature-packs>
                         <feature-pack>
                             <location>org.wildfly:wildfly-galleon-pack:${version.wildfly}</location>

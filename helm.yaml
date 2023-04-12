@@ -1,0 +1,39 @@
+image: 
+ name: localhost:5000/saml-app
+build:
+ enabled: false
+deploy:
+  replicas: 1
+  route:
+   enabled: false
+  volumes:
+    - name: saml-keystore-volume
+      secret:
+        secretName: saml-app-secret
+  volumeMounts:
+    - name: saml-keystore-volume
+      mountPath: /etc/sso-saml-secret-volume
+      readOnly: true
+  env:
+    - name: SSO_REALM
+      value: "saml-basic-auth"
+    - name: SSO_USERNAME
+      value: "client"
+    - name: SSO_PASSWORD
+      value: "creatorpassword"
+    - name: SSO_SAML_CERTIFICATE_NAME
+      value: "saml-app"
+    - name: SSO_SAML_KEYSTORE
+      value: "keystore.jks"
+    - name: SSO_SAML_KEYSTORE_PASSWORD
+      value: "password"
+    - name: SSO_SAML_KEYSTORE_DIR
+      value: "/etc/sso-saml-secret-volume"
+    - name: SSO_SAML_LOGOUT_PAGE
+      value: "/saml-app"
+    - name: SSO_DISABLE_SSL_CERTIFICATE_VALIDATION
+      value: "true"
+    - name: HOSTNAME_HTTP
+      value: "localhost:8080"
+    - name: SSO_URL
+      value: "https://test.keycloak.org"
